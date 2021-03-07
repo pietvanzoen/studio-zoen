@@ -10,15 +10,11 @@ export default {
       lists: [],
       marks: {
         decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
-          { title: 'Code', value: 'code' },
+          {title: 'Strong', value: 'strong'},
+          {title: 'Emphasis', value: 'em'}
         ],
-        annotations: [{ type: 'link' }, { type: 'internalLink' }],
-      },
-    },
-    {
-      type: 'embedHTML',
-    },
-  ],
-};
+        annotations: [{type: 'link'}]
+      }
+    }
+  ]
+}

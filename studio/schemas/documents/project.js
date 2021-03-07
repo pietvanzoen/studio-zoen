@@ -1,7 +1,7 @@
 export default {
-  name: 'page',
+  name: 'project',
   type: 'document',
-  title: 'Page',
+  title: 'Project',
   fields: [
     {
       name: 'title',
@@ -18,11 +18,30 @@ export default {
       }
     },
     {
+      name: 'heroImage',
+      type: 'image',
+      title: 'Hero Image',
+      options: {
+        hotspot: true
+      }
+    },
+    {
       name: 'content',
-      type: 'pageContent',
+      type: 'projectContent',
       title: 'Content'
+    },
+    {
+      name: 'featureImages',
+      type: 'array',
+      title: 'Feature Images',
+      description: 'These show in the portfolio index and link to this project',
+      of: [
+        {type: 'image', options: {hotspot: true}}
+      ]
     }
+
   ],
+
   preview: {
     select: {
       title: 'title',
@@ -32,7 +51,7 @@ export default {
     prepare ({title, slug, media}) {
       return {
         title,
-        subtitle: slug.current === '/' ? '/' : `/${slug.current}`,
+        subtitle: `/portfolio/${slug.current}`,
         media
       }
     }

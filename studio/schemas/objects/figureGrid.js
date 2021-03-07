@@ -1,18 +1,13 @@
 export default {
   type: 'object',
-  name: 'imageSection',
-  title: 'Images with text',
+  name: 'figureGrid',
+  title: 'Grid of images',
   fields: [
     {
       name: 'images',
       type: 'array',
       title: 'Images',
       of: [{type: 'figure'}]
-    },
-    {
-      name: 'text',
-      type: 'simplePortableText',
-      title: 'Text'
     }
   ],
   preview: {
