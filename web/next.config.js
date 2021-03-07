@@ -1,26 +1,27 @@
-const withCSS = require('@zeit/next-css')
 const client = require('./client')
 
-const isProduction = process.env.NODE_ENV === 'production'
-const query = `
+const pageQuery = `
 {
-  "routes": *[_type == "route"] {
-    ...,
-    disallowRobot,
-    includeInSitemap,
-    page->{
-      _id,
-      title,
-      _createdAt,
-      _updatedAt
-  }}
+  "pages": *[_type == "page"] {
+    _id,
+    title,
+    _createdAt,
+    _updatedAt,
+    metadata
+  },
+  "projects": *[_type == "project"] {
+    _id,
+    title,
+    _createdAt,
+    _updatedAt,
+    metadata
+  }
 }
 `
-const reduceRoutes = (obj, route) => {
-  const {page = {}, slug = {}} = route
-  const {_createdAt, _updatedAt} = page
-  const {includeInSitemap, disallowRobot} = route
-  const path = route['slug']['current'] === '/' ? '/' : `/${route['slug']['current']}`
+const reducePages = (obj, page) => {
+  const {_createdAt, _updatedAt, metadata = {}} = page
+  const {slug, includeInSitemap, disallowRobot} = metadata
+  const path = slug.current === '/' ? '/' : `/${slug.current}`
   obj[path] = {
     query: {
       slug: slug.current
@@ -29,26 +30,39 @@ const reduceRoutes = (obj, route) => {
     disallowRobot,
     _createdAt,
     _updatedAt,
-    page: '/LandingPage'
+    page: '/Page'
+  }
+  return obj
+}
+const reduceProjects = (obj, page) => {
+  const {_createdAt, _updatedAt, metadata = {}} = page
+  const {slug, includeInSitemap, disallowRobot} = metadata
+  const path = `/projects/${slug.current}`
+  obj[path] = {
+    query: {
+      slug: slug.current
+    },
+    includeInSitemap,
+    disallowRobot,
+    _createdAt,
+    _updatedAt,
+    page: '/ProjectPage'
   }
   return obj
 }
 
-module.exports = withCSS({
-  cssModules: true,
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: isProduction ? '[hash:base64:5]' : '[name]__[local]___[hash:base64:5]'
-  },
+module.exports = {
   exportPathMap: function () {
-    return client.fetch(query).then(res => {
-      const {routes = []} = res
+    return client.fetch(pageQuery).then(res => {
+      console.log(res)
+      const {pages = [], projects = []} = res
       const nextRoutes = {
         // Routes imported from sanity
-        ...routes.filter(({slug}) => slug.current).reduce(reduceRoutes, {}),
-        '/custom-page': {page: '/CustomPage'}
+        ...pages.filter(({metadata}) => metadata.slug.current).reduce(reducePages, {}),
+        ...projects.filter(({metadata}) => metadata.slug.current).reduce(reduceProjects, {})
       }
+      console.log(nextRoutes)
       return nextRoutes
     })
   }
-})
+}

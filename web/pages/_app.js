@@ -2,21 +2,16 @@ import React from 'react'
 import BaseApp from 'next/app'
 import client from '../client'
 // import 'normalize.css'
-import '../styles/shared.module.css'
-import '../styles/layout.css'
 
 const siteConfigQuery = `
   *[_id == "global-config"] {
-    ...,
+    title,
     logo {asset->{extension, url}},
-    mainNavigation[] -> {
-      ...,
-      "title": page->title
+    mainNavigation[] {
+      _key,
+      title,
+      href
     },
-    footerNavigation[] -> {
-      ...,
-      "title": page->title
-    }
   }[0]
   `
 
@@ -30,13 +25,7 @@ class App extends BaseApp {
 
     // Add site config from sanity
     return client.fetch(siteConfigQuery).then(config => {
-      if (!config) {
-        return {pageProps}
-      }
-      if (config && pageProps) {
-        pageProps.config = config
-      }
-
+      pageProps.config = config
       return {pageProps}
     })
   }
