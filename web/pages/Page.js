@@ -12,7 +12,7 @@ const pageQuery = `
     projects[]-> {
       title,
       "slug": metadata.slug,
-      featuredImages
+      featureImages
     }
   }
 }
@@ -30,8 +30,10 @@ class Page extends React.Component {
   render () {
     return (
       <Layout config={this.props.config}>
-        <h1>{this.props.title}</h1>
-        <Content blocks={this.props.content} />
+        <div className='prose'>
+          <h1>{this.props.title}</h1>
+          <Content blocks={this.props.content} />
+        </div>
       </Layout>
     )
   }

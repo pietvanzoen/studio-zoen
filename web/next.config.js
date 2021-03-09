@@ -1,4 +1,5 @@
 const client = require('./client')
+const withCSS = require('@zeit/next-css')
 
 const pageQuery = `
 {
@@ -51,18 +52,16 @@ const reduceProjects = (obj, page) => {
   return obj
 }
 
-module.exports = {
+module.exports = withCSS({
   exportPathMap: function () {
     return client.fetch(pageQuery).then(res => {
-      console.log(res)
       const {pages = [], projects = []} = res
       const nextRoutes = {
         // Routes imported from sanity
         ...pages.filter(({metadata}) => metadata.slug.current).reduce(reducePages, {}),
         ...projects.filter(({metadata}) => metadata.slug.current).reduce(reduceProjects, {})
       }
-      console.log(nextRoutes)
       return nextRoutes
     })
   }
-}
+})

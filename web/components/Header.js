@@ -86,6 +86,7 @@ class Header extends Component {
               })}
           </ul>
         </nav>
+        <hr />
       </header>
     )
   }
