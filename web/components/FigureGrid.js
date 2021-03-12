@@ -7,9 +7,10 @@ function FigureGrid ({node}) {
   if (!images) {
     return undefined
   }
+  const unitClass = images.length % 2 === 0 ? 'pure-u-1-2' : 'pure-u-1-2 pure-u-md-1-3'
   return (
-    <div>
-      {images.map(image => <Figure node={image} width='200' />)}
+    <div className='pure-g'>
+      {images.map(image => <div className={unitClass}><Figure node={image} /></div>)}
     </div>
   )
 }

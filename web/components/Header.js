@@ -5,6 +5,7 @@ import {withRouter} from 'next/router'
 import imageUrlBuilder from '@sanity/image-url'
 import SVG from 'react-inlinesvg'
 import client from '../client'
+import classnames from 'classnames'
 
 const builder = imageUrlBuilder(client)
 
@@ -52,8 +53,8 @@ class Header extends Component {
     const {title = 'Missing title', navItems, router, logo} = this.props
 
     return (
-      <header>
-        <h1>
+      <header className='header'>
+        <div className='home-menu pure-menu pure-menu-horizontal'>
           <Link
             href={{
               pathname: '/LandingPage',
@@ -64,29 +65,25 @@ class Header extends Component {
             as='/'
             prefetch
           >
-            <a title={title}>{this.renderLogo(logo)}</a>
+            <a className='pure-menu-heading' title={title}>{this.renderLogo(logo)}</a>
           </Link>
-        </h1>
-        <nav>
-          <ul>
-            {navItems &&
-              navItems.map(item => {
-                const {href, title, _key} = item
-                const isActive =
-                  router.pathname === '/Page' && router.query.slug === href
-                return (
-                  <li key={_key}>
-                    <Link
-                      href={href}
-                    >
-                      <a data-is-active={isActive ? 'true' : 'false'}>{title}</a>
-                    </Link>
-                  </li>
-                )
-              })}
-          </ul>
-        </nav>
-        <hr />
+          <nav>
+            <ul className='pure-menu-list'>
+              {navItems &&
+          navItems.map(item => {
+            const {href, title, _key} = item
+            const isActive = router.pathname === '/Page' && router.query.slug === href
+            return (
+              <li key={_key} className={classnames('pure-menu-item', {'pure-menu-selected': isActive})}>
+                <Link href={href} >
+                  <a className='pure-menu-link'>{title}</a>
+                </Link>
+              </li>
+            )
+          })}
+            </ul>
+          </nav>
+        </div>
       </header>
     )
   }

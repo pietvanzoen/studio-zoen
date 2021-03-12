@@ -30,8 +30,7 @@ class Page extends React.Component {
   render () {
     return (
       <Layout config={this.props.config}>
-        <div className='prose'>
-          <h1>{this.props.title}</h1>
+        <div className='content-wrapper'>
           <Content blocks={this.props.content} />
         </div>
       </Layout>

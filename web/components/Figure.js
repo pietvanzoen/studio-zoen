@@ -2,17 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import imageUrlBuilder from '@sanity/image-url'
 import client from '../client'
+import classnames from 'classnames'
 
 const builder = imageUrlBuilder(client)
 
-function Figure ({node, width = 2000}) {
+function Figure ({node, width = 2000, className}) {
   const {alt, caption, asset} = node
   if (!asset) {
     return undefined
   }
   return (
-    <figure>
+    <figure className={className}>
       <img
+        className={'pure-img-responsive'}
         src={builder
           .image(asset)
           .auto('format')
@@ -36,6 +38,8 @@ Figure.propTypes = {
     asset: PropTypes.shape({
       _ref: PropTypes.string
     })
-  })
+  }),
+  width: PropTypes.number,
+  className: PropTypes.string
 }
 export default Figure

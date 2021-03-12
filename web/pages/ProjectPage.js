@@ -30,14 +30,18 @@ class ProjectPage extends React.Component {
     const {config, title, heroImage, content} = this.props
     return (
       <Layout config={config}>
-        <div className='prose'>
-          <h1>{title}</h1>
-          {heroImage && <img src={builder
+        <div
+          className='banner'
+          style={{'backgroundImage': `url(${builder
             .image(heroImage)
             .auto('format')
-            .width(1000)
+            .width(2000)
             .height(500)
-            .url()} />}
+            .url()})`}} >
+          <h1 className='banner-head'>{title}</h1>
+
+        </div>
+        <div className='content-wrapper'>
           <Content blocks={content} />
         </div>
       </Layout>
