@@ -5,12 +5,13 @@
   "author": "Sanity <hello@sanity.io>",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "next build && next export && node ./exportSitemap.js",
     "format": "prettier-eslint --write \"**/*.js\" \"!.next/**\" \"!node_modules/**\" \"!out/**\"",
     "lint": "eslint .",
     "start": "next start"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^3.0.3",
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/client": "^2.1.0",
     "@sanity/image-url": "^0.140.19",

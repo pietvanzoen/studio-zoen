@@ -1,5 +1,4 @@
 const client = require('./client')
-const withCSS = require('@zeit/next-css')
 
 const pageQuery = `
 {
