@@ -7,18 +7,25 @@ import serializers from './serializers'
 const {projectId, dataset} = client.config()
 
 function Content (props) {
-  const {blocks} = props
+  const {blocks, className} = props
 
   if (!blocks) {
     console.error('Missing blocks')
     return null
   }
 
-  return <BlockContent blocks={blocks} serializers={serializers} projectId={projectId} dataset={dataset} />
+  return <BlockContent
+    renderContainerOnSingleChild
+    className={className}
+    blocks={blocks}
+    serializers={serializers}
+    projectId={projectId}
+    dataset={dataset} />
 }
 
 Content.propTypes = {
-  blocks: PropTypes.arrayOf(PropTypes.object)
+  blocks: PropTypes.arrayOf(PropTypes.object),
+  className: PropTypes.string
 }
 
 export default Content

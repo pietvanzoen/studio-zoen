@@ -4,6 +4,7 @@ import client from '../client'
 import Content from '../components/Content'
 import Layout from '../components/Layout'
 import imageUrlBuilder from '@sanity/image-url'
+import Image from '../components/Image'
 
 const builder = imageUrlBuilder(client)
 
@@ -30,16 +31,9 @@ class ProjectPage extends React.Component {
     const {config, title, heroImage, content} = this.props
     return (
       <Layout config={config}>
-        <div
-          className='banner'
-          style={{'backgroundImage': `url(${builder
-            .image(heroImage)
-            .auto('format')
-            .width(2000)
-            .height(500)
-            .url()})`}} >
+        <div className='banner' >
           <h1 className='banner-head'>{title}</h1>
-
+          <Image className='banner-image' asset={heroImage} ratio={0.3} />
         </div>
         <div className='content-wrapper'>
           <Content blocks={content} />

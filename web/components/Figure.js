@@ -23,9 +23,7 @@ function Figure ({node, width = 2000, className}) {
         alt={alt}
       />
       {caption && (
-        <figcaption>
-          <p>{caption}</p>
-        </figcaption>
+        <figcaption>{caption}</figcaption>
       )}
     </figure>
   )

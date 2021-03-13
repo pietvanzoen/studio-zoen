@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 
-import {LogoJsonLd} from 'next-seo'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -14,8 +13,7 @@ function Layout (props) {
     return <div>Missing config</div>
   }
 
-  const {title, mainNavigation, logo, url} = config
-  const logoUrl = logo && logo.asset && logo.asset.url
+  const {title, mainNavigation, logo} = config
 
   return (
     <>
@@ -25,7 +23,6 @@ function Layout (props) {
       <Header title={title} navItems={mainNavigation} logo={logo} />
       <main>{children}</main>
       <Footer />
-      {logoUrl && url && <LogoJsonLd url={url} logo={logoUrl} />}
     </>
   )
 }

@@ -72,11 +72,10 @@ class Header extends Component {
               {navItems &&
           navItems.map(item => {
             const {href, title, _key} = item
-            const isActive = router.pathname === '/Page' && router.query.slug === href
             return (
-              <li key={_key} className={classnames('pure-menu-item', {'pure-menu-selected': isActive})}>
+              <li key={_key} className={'menu-item'}>
                 <Link href={href} >
-                  <a className='pure-menu-link'>{title}</a>
+                  <a className='menu-item-link'>{title}</a>
                 </Link>
               </li>
             )

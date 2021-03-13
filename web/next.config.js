@@ -52,7 +52,10 @@ const reduceProjects = (obj, page) => {
   return obj
 }
 
-module.exports = withCSS({
+module.exports = {
+  images: {
+    domains: ['cdn.sanity.io']
+  },
   exportPathMap: function () {
     return client.fetch(pageQuery).then(res => {
       const {pages = [], projects = []} = res
@@ -64,4 +67,4 @@ module.exports = withCSS({
       return nextRoutes
     })
   }
-})
+}
