@@ -52,7 +52,7 @@ const reduceProjects = (obj, page) => {
   return obj
 }
 
-module.exports = withCSS({
+module.exports = {
   images: {
     domains: ['cdn.sanity.io']
   },
@@ -67,4 +67,4 @@ module.exports = withCSS({
       return nextRoutes
     })
   }
-})
+}
